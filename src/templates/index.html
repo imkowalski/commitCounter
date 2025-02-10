@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit Counter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .counter {
+            text-align: center;
+        }
+        .number {
+            font-size: 5em;
+        }
+        .text {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter">
+        <div class="number" id="commitNumber">0</div>
+        <div class="text">commits to ESD211</div>
+    </div>
+
+    <script>
+        async function fetchCommitCount() {
+            try {
+                const response = await fetch('/api/commits?auth_key=u4hrfni984rhf8w');
+                const data = await response.json();
+                console.log(data);
+                document.getElementById('commitNumber').textContent = data.commits;
+            } catch (error) {
+                console.error('Error fetching commit count:', error);
+            }
+        }
+
+        fetchCommitCount();
+        setInterval(fetchCommitCount, 60000);
+    </script>
+</body>
+</html>
