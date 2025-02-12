@@ -8,8 +8,11 @@ def extract_page_number(link_header):
 
 def get_commits(user, repo,api_key):
     url = f'https://api.github.com/repos/{user}/{repo}/commits?per_page=1'
-    
-    res = subprocess.Popen(f"curl -I -k {url} -H \"Authorization: Bearer {api_key}\"", shell=True, stdout=subprocess.PIPE).stdout.read().decode('utf-8')   
-    page_number = extract_page_number(res)
+    headers = {
+        'Authorization': f'Bearer {api_key}'
+    }
+    response = requests.get(url, headers=headers)
+    link_header = response.headers.get('Link', '')
+    page_number = extract_page_number(link_header)
 
     return int(page_number)
