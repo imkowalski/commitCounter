@@ -4,3 +4,5 @@ services:
     restart: unless-stopped
     ports:
       - "6666:4000"
+    env_file:
+      - .env
