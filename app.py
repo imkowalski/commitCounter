@@ -1,6 +1,6 @@
 import flask
 from flask import request, render_template, jsonify
-import src.gh_api_calls as gac
+import gh_api_calls as gac
 from dotenv import load_dotenv
 
 import os, json
