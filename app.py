@@ -1,5 +1,5 @@
 import flask
-from flask import request, render_template, jsonify
+from flask import request, render_template, jsonify, make_response
 import gh_api_calls as gac
 from dotenv import load_dotenv
 import os, json
@@ -65,4 +65,4 @@ def image():
     global total_commits
     badge = anybadge.Badge('commits', total_commits, default_color='green')
     svg = badge.badge_svg_text
-    return svg, 200, {'Content-Type': 'image/svg+xml'}
+    return svg, 200, {'Content-Type': 'image/svg+xml',"Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"}
